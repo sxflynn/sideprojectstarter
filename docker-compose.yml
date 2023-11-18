@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_DB: sideprojectdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sideprojectpassword
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - sideproject-network
+
+  java-springboot:
+    build: ./sideproject-server
+    ports:
+      - "8080:8080"
+      - "35729:35729" # LiveReload server
+    volumes:
+      - ./sideproject-server:/app
+    environment:
+      - SPRING_BOOT_DEVTOOLS_RESTART_ENABLED=true
+    networks:
+      - sideproject-network
+
+  vue-web:
+    build:
+      context: ./sideproject-web
+      dockerfile: Dockerfile
+    volumes:
+      - ./sideproject-web:/srv/app
+      - sideproject-web-node_modules:/srv/app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - sideproject-network
+
+volumes:
+  postgres-data:
+  sideproject-web-node_modules:
+
+networks:
+  sideproject-network:
+    driver: bridge
