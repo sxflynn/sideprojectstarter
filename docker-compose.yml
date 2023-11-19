@@ -8,10 +8,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: sideprojectpassword
     ports:
-      - "5433:5432"
+      - "5433:5432" # 5433 to avoid conflicts with host postgres server
     volumes:
       - ./database:/docker-entrypoint-initdb.d
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data #DB data persisting
     networks:
       - sideproject-network
 
@@ -24,6 +24,8 @@ services:
       - ./sideproject-server:/app
     environment:
       - SPRING_BOOT_DEVTOOLS_RESTART_ENABLED=true
+      - DB_HOST=db # Can run Java server in IntelliJ instead of Docker
+      - DB_PORT=5432 # Can run Java server in IntelliJ instead of Docker
     networks:
       - sideproject-network
 
