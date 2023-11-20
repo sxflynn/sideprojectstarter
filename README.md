@@ -1,5 +1,8 @@
 
+![Add a heading](https://github.com/sxflynn/sideprojectstarter/assets/2034081/da0d5583-cbe4-46f6-a274-79ae250b63d3)
+
 # Full Stack Side Project Starter
+
 Kickstart your full stack side-project with a Java Spring web server, Postgres database and Vue.js multi-container setup.
 
 ## Instructions
