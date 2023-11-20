@@ -29,7 +29,7 @@ You can verify you are in the correct location by typing `ls` and it should be t
    ```
   README.md  docker-compose.yml  sideproject-web  database  sideproject-server
   ```
-Start the Docker containers using `docker-compose`:
+Start the Docker containers using `docker compose`:
   ```
   docker compose up --build
   ```
