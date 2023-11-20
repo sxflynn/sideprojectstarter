@@ -40,6 +40,8 @@ services:
       - "5173:5173"
     environment:
       - NODE_ENV=development
+    init: true
+    stop_grace_period: 1s
     networks:
       - sideproject-network
 
