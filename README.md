@@ -143,3 +143,16 @@ To connect to the database with PgAdmin, right click on Server, Register - Serve
 | Port:              | 5433                |
 | Username:          | postgres            |
 | Password:          | sideprojectpassword |
+
+## Adding Vue.js dependencies
+If you add dependencies to the Vue.js portion of the project, you may have to delete the Docker image and rebuild.
+
+To list the volumes:
+```
+docker volume ls
+```
+To remove the node volume, delete the one with the name `web-node_modules` in it. For example:
+```
+docker volume rm sideprojectstarter_sideproject-web-node_modules
+```
+The next time you run `docker compose up` it will run `npm install` and ensure that the new dependencies are included in your `node_modules` directory.
