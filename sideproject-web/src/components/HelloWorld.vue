@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import axios  from 'axios'
 
 defineProps({
   msg: String,
@@ -13,14 +14,10 @@ const userInput = ref('') // Used to store user input
 // Function to fetch the message from the server
 const fetchAllMessages = async () => {
     try {
-        const response = await fetch('http://localhost:8080/all');
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
-        }
-        const data = await response.json();
-        messages.value = data;
+        const res = await axios.get('http://localhost:8080/all');
+        messages.value = res.data;
     } catch (error) {
-        errorMessage.value = error.message;
+        errorMessage.value = `Error: ${error.response.status}`;
     }
 }
 
@@ -31,17 +28,11 @@ const sendMessage = async () => {
       message: userInput.value,
     };
 
-    const response = await fetch('http://localhost:8080/new', {
-      method: 'POST',
+    await axios.post('http://localhost:8080/new', helloWorldObj, {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(helloWorldObj), // Convert to JSON format
     });
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
 
     // Clear the user input after successful submission
     userInput.value = '';
@@ -49,7 +40,7 @@ const sendMessage = async () => {
     // Fetch all messages again to update the list
     fetchAllMessages();
   } catch (error) {
-    errorMessage.value = error.message;
+    errorMessage.value = `Error: ${error.response.status}`;
   }
 }
 
