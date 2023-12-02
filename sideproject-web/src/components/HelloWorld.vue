@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { fetchAllMessages, createMessage } from '../service/HelloWorldService'
 
 defineProps({
   msg: String,
@@ -11,45 +12,27 @@ const errorMessage = ref('') // Used to store any error messages
 const userInput = ref('') // Used to store user input
 
 // Function to fetch the message from the server
-const fetchAllMessages = async () => {
+const showAllMessages = async () => {
     try {
-        const response = await fetch('http://localhost:8080/all');
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
-        }
-        const data = await response.json();
-        messages.value = data;
+        messages.value = await fetchAllMessages();
     } catch (error) {
-        errorMessage.value = error.message;
+        errorMessage.value = `Error: ${error.response.status}`;
     }
 }
 
 
 const sendMessage = async () => {
   try {
-    const helloWorldObj = {
-      message: userInput.value,
-    };
-
-    const response = await fetch('http://localhost:8080/new', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(helloWorldObj), // Convert to JSON format
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
+    // Creates message in database
+    await createMessage(userInput.value);
 
     // Clear the user input after successful submission
     userInput.value = '';
 
     // Fetch all messages again to update the list
-    fetchAllMessages();
+    showAllMessages();
   } catch (error) {
-    errorMessage.value = error.message;
+    errorMessage.value = `Error: ${error.response.status}`;
   }
 }
 
@@ -59,7 +42,7 @@ const sendMessage = async () => {
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <button type="button" @click="fetchAllMessages">Fetch All Messages From Postgres</button>
+    <button type="button" @click="showAllMessages">Fetch All Messages From Postgres</button>
     <ul v-if="messages.length">
       <li v-for="(message, index) in messages" :key="index">{{ message.message }}</li>
     </ul>
