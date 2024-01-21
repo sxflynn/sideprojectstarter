@@ -49,7 +49,7 @@ Commit all your changes
 ```
 git commit -m "Your commit message"
 ```
-Push your changes to Github
+Push your changes to GitHub
 ```
 git push origin main
 ```
@@ -100,12 +100,12 @@ docker compose up -d --force-recreate
 ```
 
 ## Postgres data management
-The data in your Postgres database will persist between docker container restarts and rebuilds. The `.sql` files in the `/database` directory will be run only once if no postgres storage volume is detected. If you want to change the table structure and publish those in your repo, and have those persist through container rebuilds, you will need to delete the Postgres volume. **Warning, this will delete any custom Postgres data, such as user data.**
+The data in your Postgres database will persist between docker container restarts and rebuilds. The `.sql` files in the `/database` directory will be run only once if no Postgres storage volume is detected. If you want to change the table structure and publish those in your repo, and have those persist through container rebuilds, you will need to delete the Postgres volume. **Warning, this will delete any custom Postgres data, such as user data.**
 To list the volumes:
 ```
 docker volume ls
 ```
-To remove the postgres volume, delete the one with the name `postgres-data` in it. For example:
+To remove the Postgres volume, delete the one with the name `postgres-data` in it. For example:
 ```
 docker volume rm sideprojectstarter_postgres-data
 ```
@@ -132,10 +132,10 @@ spring.datasource.driver-class-name=org.postgresql.Driver
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: sideprojectpassword
 ```
-If you make any changes to the above, you must refer to the instructions above on removing the postgres volume and starting over. **All user data will be deleted.**
+If you make any changes to the above, you must refer to the instructions above on removing the Postgres volume and starting over. **All user data will be deleted.**
 
 ### Connect to Postgres with PgAdmin
-To connect to the database with PgAdmin, right click on Server, Register - Server.
+To connect to the database with PgAdmin, right-click on Server, Register - Server.
 |                    |                     |
 |--------------------|---------------------|
 | Name | Docker Database           |
@@ -145,7 +145,7 @@ To connect to the database with PgAdmin, right click on Server, Register - Serve
 | Password:          | sideprojectpassword |
 
 ## Adding Vue.js dependencies
-If you add dependencies to the Vue.js portion of the project, you may have to delete the Docker image and rebuild.
+If you add dependencies to the Vue.js portion of the project, you may have to delete the Docker image and rebuild it.
 
 To list the volumes:
 ```
