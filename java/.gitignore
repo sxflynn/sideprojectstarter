@@ -29,3 +29,26 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# General files to ignore
+*.swp
+*~
+*.log
+
+# Java bytecode
+*.class
+
+# Package files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Dependency-reduced POM
+dependency-reduced-pom.xml
+
+# Maven work directory
+.work/
