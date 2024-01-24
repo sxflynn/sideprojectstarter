@@ -13,31 +13,31 @@ services:
       - ./database:/docker-entrypoint-initdb.d
       - postgres-data:/var/lib/postgresql/data #DB data persisting
     networks:
-      - sideproject-network
+      - network
 
   java-springboot:
-    build: ./sideproject-server
+    build: ./java
     depends_on:
       - db
     ports:
       - "8080:8080"
       - "35729:35729" # LiveReload server
     volumes:
-      - ./sideproject-server:/app
+      - ./java:/app
     environment:
       - SPRING_BOOT_DEVTOOLS_RESTART_ENABLED=true
       - DB_HOST=db # Can run Java server in IntelliJ instead of Docker
       - DB_PORT=5432 # Can run Java server in IntelliJ instead of Docker
     networks:
-      - sideproject-network
+      - network
 
   vue-web:
     build:
-      context: ./sideproject-web
+      context: ./vue
       dockerfile: Dockerfile
     volumes:
-      - ./sideproject-web:/srv/app
-      - sideproject-web-node_modules:/srv/app/node_modules
+      - ./vue:/srv/app
+      - vue-node_modules:/srv/app/node_modules
     ports:
       - "5173:5173"
     environment:
@@ -45,12 +45,12 @@ services:
     init: true
     stop_grace_period: 1s
     networks:
-      - sideproject-network
+      - network
 
 volumes:
   postgres-data:
-  sideproject-web-node_modules:
+  vue-node_modules:
 
 networks:
-  sideproject-network:
+  network:
     driver: bridge
