@@ -176,6 +176,6 @@ The IntelliJ IDEA Community Edition is [free to download](https://www.jetbrains.
 
 1. Open IntelliJ and go to File -> Open
 1. Select `pom.xml` in the to open the project
-1. If it says "Project JDK is not defined" then click on "Setup JDK" and select version 11.
 1. Navigate to `/src/main/java/com.sideproject.starter/` and double click `SideProjectApplication` to open it.
+1. If it says "Project JDK is not defined" then click on "Setup SDK", click Download JDK... and select version 11.
 1. Click on the run button in the top right corner to run the Java server.
