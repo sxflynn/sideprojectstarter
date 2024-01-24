@@ -28,7 +28,7 @@ Change your working directory to the project folder:
   ```
 You can verify you are in the correct location by typing `ls` and it should be this:
    ```
-  README.md  docker-compose.yml  sideproject-web  database  sideproject-server
+  README.md  docker-compose.yml  vue  database  java
   ```
 Start the Docker containers using `docker compose`:
   ```
@@ -37,7 +37,7 @@ Start the Docker containers using `docker compose`:
 
 ### 4. Access the Vue Project
 
-Once the containers are up and running, your Vue.js project should be accessible at [http://localhost:5173](http://localhost:5173) in your web browser.
+Once the containers are up and running, your Vue.js project should be accessible at [http://localhost:5173](http://localhost:5173) in your web browser. You can also view the website on another device on your network, such as a phone, by going to the local IP of your computer. For example `http://192.168.100.4:5178`. 
 
 Now, you have successfully set up your full stack side project with Spring Boot, PostgreSQL, and Vue.js using Docker containers. You can start developing your application by editing the code in the project directory.
 
@@ -116,7 +116,7 @@ The next time you run `docker compose up` it will rebuild your database structur
 The username/password combo for Postgres is initialized in two locations: 
 ```
 ./docker-compose.yml
-./sideproject-server/src/main/resources/application.properties
+./java/src/main/resources/application.properties
 ```
 You can change the database name, user and password in these two files:
 ```
@@ -158,7 +158,7 @@ docker volume ls
 ```
 To remove the node volume, delete the one with the name `web-node_modules` in it. For example:
 ```
-docker volume rm sideprojectstarter_sideproject-web-node_modules
+docker volume rm sideprojectstarter_vue-node_modules
 ```
 The next time you run `docker compose up` it will run `npm install` and ensure that the new dependencies are included in your `node_modules` directory.
 
