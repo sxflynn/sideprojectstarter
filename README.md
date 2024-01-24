@@ -21,10 +21,10 @@ Kickstart your full stack side-project with a Java Spring web server, Postgres d
 
 ### 3. Start Containers
 
-Change your working directory to the project folder:
+Change your working directory to the new project folder name:
   
   ```
-  cd sideprojectstarter
+  cd [ProjectFolderName]
   ```
 You can verify you are in the correct location by typing `ls` and it should be this:
    ```
