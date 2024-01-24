@@ -15,6 +15,7 @@ Kickstart your full stack side-project with a Java Spring web server, Postgres d
 ### 2. Clone the Repository Template
 
 - Click on `Use this template` and click `Create a new repository`
+- Choose any name for your project repo, or `sideproject` by default
 - `git clone` your new side project repo
 - Optionally, if you prefer to download this repo as a zip file, [click here](https://github.com/sxflynn/sideprojectstarter/archive/refs/heads/main.zip).
 
@@ -138,11 +139,15 @@ If you make any changes to the above, you must refer to the instructions above o
 To connect to the database with PgAdmin, right-click on Server, Register - Server.
 |                    |                     |
 |--------------------|---------------------|
+| "General" tab          |
 | Name | Docker Database           |
-| Host name/address: | localhost           |
-| Port:              | 5433                |
-| Username:          | postgres            |
-| Password:          | sideprojectpassword |
+| "Connection" tab          |
+| Host name/address: | `localhost`           |
+| Port:              | `5433`                |
+| Username:          | `postgres`            |
+| Password:          | `sideprojectpassword` |
+
+The database is called `sideprojectdb` by default, unless you change the name in the instructions above. Make sure to use that instead of `postgres`.
 
 ## Adding Vue.js dependencies
 If you add dependencies to the Vue.js portion of the project, you may have to delete the Docker image and rebuild it.
@@ -156,3 +161,21 @@ To remove the node volume, delete the one with the name `web-node_modules` in it
 docker volume rm sideprojectstarter_sideproject-web-node_modules
 ```
 The next time you run `docker compose up` it will run `npm install` and ensure that the new dependencies are included in your `node_modules` directory.
+
+## Tips for Active Development
+If you are actively developing a project, you will likely want to only use Docker for Postgres and Vue, and actively develop the Java application in a dedicated IDE.
+
+To start your `db` and `vue-web` services only without Java, use this command:
+```
+docker compose up db vue-web
+```
+This will start the database and Vue containers, leaving you to develop and run the Java service in a dedicated IDE like IntelliJ.
+
+### Using IntelliJ to develop your Java server
+The IntelliJ IDEA Community Edition is [free to download](https://www.jetbrains.com/idea/download/) and recommended for actively developing this side project.
+
+1. Open IntelliJ and go to File -> Open
+1. Select `pom.xml` in the to open the project
+1. If it says "Project JDK is not defined" then click on "Setup JDK" and select version 11.
+1. Navigate to `/src/main/java/com.sideproject.starter/` and double click `SideProjectApplication` to open it.
+1. Click on the run button in the top right corner to run the Java server.
