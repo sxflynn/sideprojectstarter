@@ -105,7 +105,10 @@ docker volume prune -a
 ```
 
 ## Postgres data management
-The data in your Postgres database will persist between docker container restarts and rebuilds. The `.sql` files in the `/database` directory will be run only once if no Postgres storage volume is detected. If you want to change the table structure and publish those in your repo, and have those persist through container rebuilds, you will need to delete the Postgres volume. **Warning, this will delete any custom Postgres data, such as user data.**
+The data in your Postgres database will persist between docker container restarts and rebuilds. The `.sql` files in the `/database` directory will be run only once if no Postgres storage volume is detected.
+
+### Updating SQL tables and schemas
+If you want to change the table structure and publish those in your repo, and have those persist through container rebuilds, you will need to delete the Postgres volume. **Warning, this will delete any custom Postgres data, such as user data.**
 To list the volumes:
 ```
 docker volume ls
@@ -167,6 +170,10 @@ docker volume ls
 To remove the node volume, delete the one with the name `web-node_modules` in it. For example:
 ```
 docker volume rm sideprojectstarter_vue-node_modules
+```
+You could also just run the `prune` command to delete *all* named and anonymous docker images.
+```
+docker volume prune -a
 ```
 The next time you run `docker compose up` it will run `npm install` and ensure that the new dependencies are included in your `node_modules` directory.
 
