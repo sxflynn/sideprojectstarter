@@ -99,6 +99,10 @@ Force containers to be recreated even if their configuration and image haven't c
 ```
 docker compose up -d --force-recreate
 ```
+Delete all docker images, great for debugging and troubleshooting npm dependencies. **Warning, this will delete any custom Postgres data, such as user data.**
+```
+docker volume prune -a
+```
 
 ## Postgres data management
 The data in your Postgres database will persist between docker container restarts and rebuilds. The `.sql` files in the `/database` directory will be run only once if no Postgres storage volume is detected. If you want to change the table structure and publish those in your repo, and have those persist through container rebuilds, you will need to delete the Postgres volume. **Warning, this will delete any custom Postgres data, such as user data.**
@@ -109,6 +113,10 @@ docker volume ls
 To remove the Postgres volume, delete the one with the name `postgres-data` in it. For example:
 ```
 docker volume rm sideprojectstarter_postgres-data
+```
+You could also just run the `prune` command to delete *all* named and anonymous docker images.
+```
+docker volume prune -a
 ```
 The next time you run `docker compose up` it will rebuild your database structure according to the contents of your `.sql` files in the `/database` directory.
 
