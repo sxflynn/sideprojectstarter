@@ -7,6 +7,8 @@ import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.lang.NonNull;
+
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.List;
 public class JdbcHelloWorldDao implements HelloWorldDao {
 
     private JdbcTemplate jdbcTemplate;
-    public JdbcHelloWorldDao(DataSource dataSource){
+    public JdbcHelloWorldDao(@NonNull DataSource dataSource){
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -57,7 +59,6 @@ public class JdbcHelloWorldDao implements HelloWorldDao {
     @Override
     public List<HelloWorld> getAllHelloWorlds() {
         List<HelloWorld> helloWorldList = new ArrayList<>();
-        HelloWorld helloWorld = new HelloWorld();
         String sql = "SELECT message FROM greetings";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
